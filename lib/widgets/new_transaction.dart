@@ -15,7 +15,9 @@ class _NewTransactionState extends State<NewTransaction> {
 
   void submitted() {
     final enteredTitle = titleController.text;
-    final enteredAmount = double.parse(amountController.text);
+    final enteredAmount = amountController.text.isEmpty
+        ? 0.0
+        : double.parse(amountController.text);
 
     if (enteredTitle.isEmpty || enteredAmount <= 0) return;
 
@@ -37,11 +39,13 @@ class _NewTransactionState extends State<NewTransaction> {
           children: [
             TextField(
               controller: titleController,
+              style: Theme.of(context).textTheme.bodyMedium,
               decoration: const InputDecoration(hintText: 'Title'),
               onSubmitted: (_) => submitted(),
             ),
             TextField(
               controller: amountController,
+              style: Theme.of(context).textTheme.bodyMedium,
               decoration: const InputDecoration(hintText: 'Amount'),
               onSubmitted: (_) => submitted(),
               keyboardType:
@@ -49,10 +53,7 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             TextButton(
               onPressed: () => submitted(),
-              child: const Text(
-                'Add Transaction',
-                style: TextStyle(color: Colors.purple),
-              ),
+              child: const Text('Add Transaction'),
             ),
           ],
         ),

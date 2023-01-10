@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import './models/transaction.dart';
 import './widgets/transaction_list.dart';
+import 'widgets/chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +17,33 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Expenses App',
       home: HomeScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        textTheme: Theme.of(context).primaryTextTheme.copyWith(
+              titleLarge: TextStyle(
+                fontFamily: 'Quicksand',
+                fontSize: 20,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+              bodyLarge: TextStyle(
+                fontSize: 17.5,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),
+              bodyMedium: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),
+              bodySmall: TextStyle(
+                fontSize: 12.5,
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+        fontFamily: 'Quicksand',
+      ),
     );
   }
 }
@@ -84,14 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: 100,
-              margin: EdgeInsets.only(top: 5),
-              child: Card(
-                elevation: 5,
-                child: Text('CHART'),
-              ),
-            ),
+            Chart(transactions: _userTransactions),
             TransactionList(transactions: _userTransactions),
           ],
         ),
