@@ -6,18 +6,21 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList({super.key, required this.transactions});
-
+  const TransactionList(
+      {super.key, required this.transactions, required this.deleteTx});
+  final Function deleteTx;
   final List<Transaction> transactions;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: 650,
       child: transactions.isEmpty
           ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
                 Text(
                   'No recent transaction',
                   style: Theme.of(context).textTheme.titleLarge,
@@ -43,34 +46,45 @@ class TransactionList extends StatelessWidget {
                     padding: const EdgeInsets.all(15),
                     child: Row(
                       children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 20),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Theme.of(context).primaryColor,
-                                width: 2),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 10),
+                        CircleAvatar(
+                          radius: 30,
                           child: Text(
                               '\$${transactions[index].amount.toStringAsFixed(2)}',
-                              style: Theme.of(context).textTheme.bodyMedium),
+                              style: Theme.of(context).textTheme.titleMedium),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(transactions[index].title,
-                                style: Theme.of(context).textTheme.bodyLarge),
-                            const SizedBox(
-                              height: 5,
+                        Flexible(
+                          flex: 7,
+                          fit: FlexFit.tight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(transactions[index].title,
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  DateFormat.yMMMMd()
+                                      .format(transactions[index].date),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ],
                             ),
-                            Text(
-                              DateFormat.yMMMMd()
-                                  .format(transactions[index].date),
-                              style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.grey.withOpacity(.8),
                             ),
-                          ],
+                            onPressed: () => deleteTx(transactions[index].id),
+                          ),
                         ),
                       ],
                     ),

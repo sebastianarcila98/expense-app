@@ -41,6 +41,10 @@ class MyApp extends StatelessWidget {
                 color: Colors.grey[600],
                 fontWeight: FontWeight.w600,
               ),
+              titleMedium: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500),
             ),
         fontFamily: 'Quicksand',
       ),
@@ -68,6 +72,54 @@ class _HomeScreenState extends State<HomeScreen> {
       title: 'Groceries',
       amount: 21.99,
       date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'New shoes',
+      amount: 89.69,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Groceries',
+      amount: 21.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'New shoes',
+      amount: 89.69,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't6',
+      title: 'Groceries',
+      amount: 21.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't7',
+      title: 'New shoes',
+      amount: 89.69,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't8',
+      title: 'Groceries',
+      amount: 21.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't9',
+      title: 'New shoes',
+      amount: 89.69,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't10',
+      title: 'Groceries',
+      amount: 21.99,
+      date: DateTime.now(),
     )
   ];
 
@@ -82,15 +134,21 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _addTransaction(String txTitle, double txAmount) {
+  void _addTransaction(String txTitle, double txAmount, DateTime chosenTime) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: chosenTime,
     );
     setState(() {
       _userTransactions.add(newTx);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((element) => element.id == id);
     });
   }
 
@@ -113,7 +171,8 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(transactions: _userTransactions),
-            TransactionList(transactions: _userTransactions),
+            TransactionList(
+                transactions: _userTransactions, deleteTx: _deleteTransaction),
           ],
         ),
       ),
