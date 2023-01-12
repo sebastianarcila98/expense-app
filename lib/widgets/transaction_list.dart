@@ -48,9 +48,11 @@ class TransactionList extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 30,
-                          child: Text(
-                              '\$${transactions[index].amount.toStringAsFixed(2)}',
-                              style: Theme.of(context).textTheme.titleMedium),
+                          child: FittedBox(
+                            child: Text(
+                                '\$${transactions[index].amount.toStringAsFixed(2)}',
+                                style: Theme.of(context).textTheme.titleMedium),
+                          ),
                         ),
                         Flexible(
                           flex: 7,

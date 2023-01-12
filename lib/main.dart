@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+
 import 'package:expense_app/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
 
@@ -122,6 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
       date: DateTime.now(),
     )
   ];
+
+  var switchVal = false;
 
   void _startAddTransaction(BuildContext ctx) {
     showModalBottomSheet(
